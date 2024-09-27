@@ -24,7 +24,10 @@ public class PessoaRepository (ApplicationDataContext context)
 
     public async Task<IEnumerable<PessoaEntity>> ListRepository()
     {
-        var result = await context.Pessoas.AsNoTracking().ToListAsync();
+        var result = await context.Pessoas
+            .AsNoTracking()
+            .Include(x => x.Endereco)
+            .ToListAsync();
 
         return result;
     }

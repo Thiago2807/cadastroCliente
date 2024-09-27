@@ -24,7 +24,7 @@ public record AddEnderecoCommand(
         string Gia,
         string Ddd,
         string Siafi
-    ): IRequest<AddResult>;
+    );
 
 public record AddResult(Guid Id, string Email);
 
