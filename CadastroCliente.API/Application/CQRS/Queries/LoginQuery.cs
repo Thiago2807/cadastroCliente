@@ -3,12 +3,13 @@
 public record LoginQuery (string Email, string Senha)
     : IRequest<LoginResult>;
 
-public record LoginResult(
-        string Nome,
-        string Cpf,
-        string Email,
-        string Token
-    );
+public record LoginResult
+{
+    public string Nome { get; set; } = default!;
+    public string Cpf { get; set; } = default!;
+    public string Email { get; set; } = default!;
+    public string Token { get; set; } = default!;
+};
 
 public class LoginQueryValid : AbstractValidator<LoginQuery>
 {

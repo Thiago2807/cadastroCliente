@@ -1,6 +1,6 @@
 ﻿namespace CadastroCliente.API.Features.V1.Login;
 
-public class LoginHandler (IPessoaRepository pessoaRepository)
+public class LoginHandler (IPessoaRepository pessoaRepository, IConfiguration configuration)
     : IRequestHandler<LoginQuery, LoginResult>
 {
     public async Task<LoginResult> Handle(LoginQuery query, CancellationToken cancellationToken)
@@ -15,6 +15,7 @@ public class LoginHandler (IPessoaRepository pessoaRepository)
         var response = entity.Adapt<LoginResult>();
 
         // Adicionar o Token aqui
+        response.Token = JWTUtility.GenerateJwtToken(configuration, entity);
 
         return response;
     }

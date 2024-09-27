@@ -10,6 +10,7 @@ public class ListagemEndpoint : ICarterModule
 
             return Results.Ok(response);
         })
-        .WithName("Listagem");
+        .WithName("Listagem")
+        .RequireAuthorization();
     }
 }

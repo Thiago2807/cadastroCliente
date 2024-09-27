@@ -26,3 +26,9 @@ global using CadastroCliente.API.Application.CQRS.Commands;
 
 global using CadastroCliente.API.Application.Utility;
 global using CadastroCliente.API.Application.CQRS.Queries;
+
+global using Microsoft.IdentityModel.Tokens;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using System.Text;
