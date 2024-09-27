@@ -25,3 +25,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using CadastroCliente.API.Application.CQRS.Commands;
 
 global using CadastroCliente.API.Application.Utility;
+global using CadastroCliente.API.Application.CQRS.Queries;

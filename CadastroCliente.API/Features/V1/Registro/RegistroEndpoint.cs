@@ -4,7 +4,7 @@ public class RegistroEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/api/v1/pessoa", async (AddCommand request, ISender sender) =>
+        app.MapPost("/api/v1/pessoa/registro", async (AddCommand request, ISender sender) =>
         {
             var response = await sender.Send(request);
 
