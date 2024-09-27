@@ -10,3 +10,7 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 global using CadastroCliente.API.Domain.Interfaces;
 global using CadastroCliente.API.IOC.Data.Repository;
+
+global using CadastroCliente.API.Domain.Exceptions;
+global using Microsoft.AspNetCore.Diagnostics;
+global using Microsoft.AspNetCore.Mvc;
