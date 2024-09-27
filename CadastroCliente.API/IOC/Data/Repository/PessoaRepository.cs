@@ -28,4 +28,20 @@ public class PessoaRepository (ApplicationDataContext context)
 
         return result;
     }
+
+    public async Task VerificarUsuario(string email = "", string cpf = "")
+    {
+        List<Expression<Func<PessoaEntity, bool>>> expressions = [
+            (x => x.Email == email),
+            (x => x.Cpf == cpf)
+        ];
+
+        for (int i = 0; i < expressions.Count; i++)
+        {
+            bool response = await context.Pessoas.AnyAsync(expressions[i]);
+
+            if (response)
+                throw new BadRequestException($"Usuário já cadastrado, campo: {(i == 0 ? "E-mail" : "Cpf")}");
+        }
+    }
 }

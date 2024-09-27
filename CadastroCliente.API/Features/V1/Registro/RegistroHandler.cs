@@ -5,6 +5,8 @@ public class RegistroHandler(IPessoaRepository pessoaRepository)
 {
     public async Task<AddResult> Handle(AddCommand command, CancellationToken cancellationToken)
     {
+        await pessoaRepository.VerificarUsuario(command.Email, command.Cpf);
+
         // Converter dados de entrada para a entitidade
         var entity = command.Adapt<PessoaEntity>();
 

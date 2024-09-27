@@ -4,6 +4,8 @@ builder.Services.AddCarter();
 
 builder.Services.AddDependencyInjection(builder.Configuration);
 
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(typeof(Program).Assembly);
