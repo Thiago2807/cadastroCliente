@@ -7,11 +7,12 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("Database");
         var versionDb = ServerVersion.AutoDetect(connectionString);
 
-
         services.AddDbContext<ApplicationDataContext>(options =>
             options.UseMySql(connectionString, versionDb,
                 b => b.MigrationsAssembly(typeof(ApplicationDataContext).Assembly.FullName))
         );
+
+        services.AddScoped<IPessoaRepository, PessoaRepository>();
 
         return services;
     }

@@ -7,3 +7,6 @@ global using System.Security.Cryptography;
 global using CadastroCliente.API.Domain.Entities;
 
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+global using CadastroCliente.API.Domain.Interfaces;
+global using CadastroCliente.API.IOC.Data.Repository;
