@@ -17,3 +17,5 @@ global using CadastroCliente.API.IOC.Data.Repository;
 global using CadastroCliente.API.Domain.Exceptions;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Mvc;
+
+global using CadastroCliente.API.Application.CQRS.Commands;
