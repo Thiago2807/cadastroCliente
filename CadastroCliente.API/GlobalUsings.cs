@@ -1,5 +1,6 @@
 ﻿global using FluentValidation;
 global using MediatR;
+global using Mapster;
 
 global using CadastroCliente.API.IOC;
 global using Microsoft.EntityFrameworkCore;
@@ -19,3 +20,5 @@ global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Mvc;
 
 global using CadastroCliente.API.Application.CQRS.Commands;
+
+global using CadastroCliente.API.Application.Utility;

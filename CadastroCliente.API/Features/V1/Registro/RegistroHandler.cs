@@ -3,19 +3,20 @@
 public class RegistroHandler(IPessoaRepository pessoaRepository)
     : IRequestHandler<AddCommand, AddResult>
 {
-    public Task<AddResult> Handle(AddCommand command, CancellationToken cancellationToken)
+    public async Task<AddResult> Handle(AddCommand command, CancellationToken cancellationToken)
     {
         // Converter dados de entrada para a entitidade
-
+        var entity = command.Adapt<PessoaEntity>();
 
         // Gerar Salt
-        // Gerar Hash
+        entity.Salt = HashHelper.GerarSalt();
 
-        // Adicionar no objeto esses dados
+        // Gerar Hash
+        entity.Hash = HashHelper.GerarHash(command.Senha, entity.Salt);
 
         // Adicionar no banco de dados
+        await pessoaRepository.AddRepository(entity);
 
-        // Retornar e-mail e código do usuario
-        throw new NotImplementedException();
+        return new AddResult(entity.Id, entity.Email);
     }
 }

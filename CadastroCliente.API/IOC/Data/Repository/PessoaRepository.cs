@@ -6,7 +6,10 @@ public class PessoaRepository (ApplicationDataContext context)
     public async Task AddRepository(PessoaEntity entity)
     {
         await context.Pessoas.AddAsync(entity);
-        await context.SaveChangesAsync();
+        var result = await context.SaveChangesAsync();
+
+        if (result <= 0)
+            throw new InternetServerErrorException("Não foi possível criar o usuário, verifique e tente novamente.");
     }
 
     public async Task<PessoaEntity> GetRepository(string email)
