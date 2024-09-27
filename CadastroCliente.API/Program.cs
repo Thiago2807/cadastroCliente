@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCarter();
+
 builder.Services.AddDependencyInjection(builder.Configuration);
 
 builder.Services.AddMediatR(config =>
@@ -11,6 +13,8 @@ builder.Services.AddMediatR(config =>
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 var app = builder.Build();
+
+app.MapCarter();
 
 app.UseExceptionHandler(options => { });
 

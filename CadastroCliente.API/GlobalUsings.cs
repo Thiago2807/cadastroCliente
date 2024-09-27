@@ -1,6 +1,7 @@
 ﻿global using FluentValidation;
 global using MediatR;
 global using Mapster;
+global using Carter;
 
 global using CadastroCliente.API.IOC;
 global using Microsoft.EntityFrameworkCore;
