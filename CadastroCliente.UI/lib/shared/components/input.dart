@@ -20,8 +20,9 @@ class InputForm extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: size.height * .02),
       padding: EdgeInsets.symmetric(horizontal: size.height * .02),
       decoration: BoxDecoration(
-          color: const Color(0XFFF5F5F5),
-          borderRadius: BorderRadius.circular(size.width * .02)),
+        color: const Color(0XFFF5F5F5),
+        borderRadius: BorderRadius.circular(size.width * .02),
+      ),
       child: TextFormField(
         controller: editController,
         cursorColor: Colors.grey.shade600,
