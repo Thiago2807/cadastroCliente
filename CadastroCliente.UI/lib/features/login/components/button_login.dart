@@ -14,7 +14,7 @@ class ButtonLogin extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: size.height * .03),
       padding: EdgeInsets.symmetric(vertical: size.height * .015),
       decoration: BoxDecoration(
-        color: Color(AppColors.primary),
+        gradient: AppColors.gradientApp,
         borderRadius: BorderRadius.circular(size.width * .02),
       ),
       child: Text(

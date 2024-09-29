@@ -55,82 +55,131 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * .1,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: size.width * .17,
-                    vertical: size.height * .05,
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(AppColors.primary),
+        gradient: AppColors.gradientApp,
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Positioned(
+              top: -size.height * .1,
+              right: -size.height * .05,
+              child: Opacity(
+                opacity: .1,
+                child: CircleAvatar(
+                  radius: size.width * .25,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+            ),
+            Positioned(
+              top: -size.height * .08,
+              right: -size.height * .09,
+              child: Opacity(
+                opacity: .1,
+                child: CircleAvatar(
+                  radius: size.width * .25,
+                  backgroundColor: Colors.white,
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: size.height * .09),
                   ),
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/images/login_image.jpg",
-                      height: size.height * .2,
-                      fit: BoxFit.cover,
+                  Container(
+                    height: size.height * .82,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: size.width * .1,
+                      vertical: size.height * .08,
                     ),
-                  ),
-                ),
-                Text(
-                  "Login",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    color: Color(AppColors.black),
-                    fontSize: size.width * .08,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  "Faça login na sua conta primeiro",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    color: Color(AppColors.black),
-                    fontSize: size.width * .04,
-                  ),
-                ),
-                SizedBox(height: size.height * .04),
-                Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: size.height * .2,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: dataForm.length,
-                          itemBuilder: (context, index) => InputForm(
-                            hintText: dataForm[index]["hintText"],
-                            obscureText: dataForm[index]["obscureText"],
-                            editController: dataForm[index]["editController"],
-                            focusNode: dataForm[index]["focusNode"],
-                            onFieldSubmitted: dataForm[index]["onFieldSubmitted"],
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(size.width * .05),
+                          topRight: Radius.circular(size.width * .05),
+                        )),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Container(
+                        //   margin: EdgeInsets.symmetric(
+                        //     horizontal: size.width * .17,
+                        //     vertical: size.height * .05,
+                        //   ),
+                        //   child: ClipOval(
+                        //     child: Image.asset(
+                        //       "assets/images/login_image.jpg",
+                        //       height: size.height * .2,
+                        //       fit: BoxFit.cover,
+                        //     ),
+                        //   ),
+                        // ),
+                        Text(
+                          "Login",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            color: Color(AppColors.black),
+                            fontSize: size.width * .08,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                      SizedBox(height: size.height * .03),
-                      Text(
-                        "Esqueceu sua senha?",
-                        textAlign: TextAlign.right,
-                        style: GoogleFonts.inter(
-                          color: Color(AppColors.blue),
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          "Faça login na sua conta primeiro",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            color: Color(AppColors.black),
+                            fontSize: size.width * .04,
+                          ),
                         ),
-                      ),
-                      const ButtonLogin()
-                    ],
+                        SizedBox(height: size.height * .04),
+                        Form(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: size.height * .2,
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: dataForm.length,
+                                  itemBuilder: (context, index) => InputForm(
+                                    hintText: dataForm[index]["hintText"],
+                                    obscureText: dataForm[index]["obscureText"],
+                                    editController: dataForm[index]
+                                        ["editController"],
+                                    focusNode: dataForm[index]["focusNode"],
+                                    onFieldSubmitted: dataForm[index]
+                                        ["onFieldSubmitted"],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: size.height * .03),
+                              Text(
+                                "Esqueceu sua senha?",
+                                textAlign: TextAlign.right,
+                                style: GoogleFonts.inter(
+                                  color: Color(AppColors.blue),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const ButtonLogin()
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
