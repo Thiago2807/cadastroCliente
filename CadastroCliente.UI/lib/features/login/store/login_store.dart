@@ -6,7 +6,7 @@ class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store {
   @observable
-  bool visiblePassword = false;
+  bool visiblePassword = true;
 
   @action
   alterVisiblePassword() {

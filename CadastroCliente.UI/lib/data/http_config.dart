@@ -22,7 +22,7 @@ class HttpConfig {
     final Dio dio = Dio(
       BaseOptions(
         baseUrl:
-            "https://ca3b-2804-7f0-a218-1ea8-8c9-ead3-15b5-550e.ngrok-free.app",
+            "https://834c-2804-7f0-a218-1ea8-8c9-ead3-15b5-550e.ngrok-free.app",
         validateStatus: (status) => status != null,
         headers: headers,
       ),

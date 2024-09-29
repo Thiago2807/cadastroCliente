@@ -179,7 +179,7 @@ class _LoginViewState extends State<LoginView> {
                                     _passwordController,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),

@@ -1,17 +1,17 @@
 class UserAddressEntity {
-  final String cep;
-  final String logradouro;
-  final String complemento;
-  final String unidade;
-  final String bairro;
-  final String localidade;
-  final String uf;
-  final String estado;
-  final String regiao;
-  final String ibge;
-  final String gia;
-  final String ddd;
-  final String siafi;
+  String cep = "";
+  String logradouro = "";
+  String complemento = "";
+  String unidade = "";
+  String bairro = "";
+  String localidade = "";
+  String uf = "";
+  String estado = "";
+  String regiao = "";
+  String ibge = "";
+  String gia = "";
+  String ddd = "";
+  String siafi = "";
 
   UserAddressEntity({
     required this.cep,
@@ -29,6 +29,22 @@ class UserAddressEntity {
     required this.siafi,
   });
 
+  factory UserAddressEntity.fromEmpty() => UserAddressEntity(
+    cep: "",
+    logradouro: "",
+    complemento: "",
+    unidade: "",
+    bairro: "",
+    localidade: "",
+    uf: "",
+    estado: "",
+    regiao: "",
+    ibge: "",
+    gia: "",
+    ddd: "",
+    siafi: "",
+  );
+
   // Método para converter um JSON em um objeto Endereco
   factory UserAddressEntity.fromJson(Map<String, dynamic> json) => UserAddressEntity(
       cep: json['cep'],
@@ -45,6 +61,24 @@ class UserAddressEntity {
       ddd: json['ddd'],
       siafi: json['siafi'],
     );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'cep': cep,
+      'logradouro': logradouro,
+      'complemento': complemento,
+      'unidade': unidade,
+      'bairro': bairro,
+      'localidade': localidade,
+      'uf': uf,
+      'estado': estado,
+      'regiao': regiao,
+      'ibge': ibge,
+      'gia': gia,
+      'ddd': ddd,
+      'siafi': siafi,
+    };
+  }
 
   String formatAddress() {
     String formattedAddress = '$logradouro, $bairro, $localidade - $uf, $cep';

@@ -4,15 +4,22 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../domain/colors.dart';
 
-class ButtonAdd extends StatelessWidget {
-  const ButtonAdd({super.key});
+class ButtonAddUser extends StatelessWidget {
+  const ButtonAddUser({
+    super.key,
+    required this.function,
+    required this.content,
+  });
+
+  final Function() function;
+  final Widget content;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, ListRoutes.addUser),
+      onTap: function,
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: size.height * .02,
@@ -26,22 +33,7 @@ class ButtonAdd extends StatelessWidget {
           builder: (context, constraints) => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                "Adicione um Novo Usuário",
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: constraints.maxWidth * .055,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                "Sem usuários cadastrados ainda? Cadastre novos membros!",
-                style: GoogleFonts.inter(
-                  color: Colors.white,
-                  fontSize: constraints.maxWidth * .04,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              content
             ],
           ),
         ),

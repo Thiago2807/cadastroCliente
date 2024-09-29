@@ -1,5 +1,7 @@
 import 'package:cadastrocliente_ui/domain/entities/user_address_entity.dart';
 
+import '../../features/add_user/store/user_singleton.dart';
+
 class UserEntity {
   UserEntity({
     required this.id,
@@ -17,6 +19,17 @@ class UserEntity {
   DateTime dtNascimento;
   UserAddressEntity endereco;
 
+  factory UserEntity.fromEmpty() {
+    return UserEntity(
+      id: "",
+      nome: "",
+      email: "",
+      cpf: "",
+      dtNascimento: DateTime.now(),
+      endereco: UserAddressEntity.fromEmpty(),
+    );
+  }
+
   factory UserEntity.fromJson(Map<String, dynamic> json) {
     return UserEntity(
       id: json['id'],
@@ -27,4 +40,13 @@ class UserEntity {
       endereco: UserAddressEntity.fromJson(json['endereco']),
     );
   }
+
+  factory UserEntity.fromObject(UserSingleton singleton) => UserEntity(
+        id: singleton.id,
+        nome: singleton.nome,
+        email: singleton.email,
+        cpf: singleton.cpf,
+        dtNascimento: singleton.dtNascimento,
+        endereco: singleton.endereco,
+      );
 }
