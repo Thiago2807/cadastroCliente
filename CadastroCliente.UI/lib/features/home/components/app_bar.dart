@@ -1,5 +1,5 @@
 import 'package:cadastrocliente_ui/domain/colors.dart';
-import 'package:cadastrocliente_ui/domain/entities/user_entity.dart';
+import 'package:cadastrocliente_ui/features/login/dtos/user_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +13,7 @@ class AppBarComponent extends StatefulWidget {
 }
 
 class _AppBarComponentState extends State<AppBarComponent> {
-  late Future<UserEntity> dataUser;
+  late Future<UserDto> dataUser;
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
         padding: EdgeInsets.symmetric(
           horizontal: constraints.maxWidth * .03,
         ),
-        child: FutureBuilder<UserEntity>(
+        child: FutureBuilder<UserDto>(
           future: dataUser,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -49,6 +49,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
                 ),
                 PopupMenuButton(
                   position: PopupMenuPosition.under,
+                  color: Colors.white,
                   child: CircleAvatar(
                     backgroundColor: Color(AppColors.blue),
                     child: Text(
