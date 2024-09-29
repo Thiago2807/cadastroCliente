@@ -1,4 +1,6 @@
 import 'package:cadastrocliente_ui/domain/colors.dart';
+import 'package:cadastrocliente_ui/features/login/login.dart';
+import 'package:cadastrocliente_ui/features/login/login_dto.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -169,7 +171,15 @@ class _LoginViewState extends State<LoginView> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const ButtonLogin()
+                              ButtonLogin(
+                                function: () => Login.requestLogin(
+                                  context,
+                                  data: LoginDto.fromTextController(
+                                    _emailController,
+                                    _passwordController,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         ),

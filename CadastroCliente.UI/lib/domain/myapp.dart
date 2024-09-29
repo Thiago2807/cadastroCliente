@@ -1,4 +1,5 @@
-import 'package:cadastrocliente_ui/domain/routes.dart';
+import 'package:cadastrocliente_ui/domain/routes/list_routes.dart';
+import 'package:cadastrocliente_ui/domain/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: "/Login",
+      initialRoute: ListRoutes.login,
       routes: routes,
     );
   }

@@ -5,6 +5,7 @@ class AppColors {
   static int get second => 0;
   static int get blue => 0xFF2B87FD;
   static int get black => 0xFF1c1c1c;
+  static int get red => 0xFFc1121f;
 
   static const gradientApp = LinearGradient(
     colors: [
