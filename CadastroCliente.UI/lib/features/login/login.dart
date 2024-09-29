@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cadastrocliente_ui/domain/entities/error_entity.dart';
+import 'package:cadastrocliente_ui/domain/routes/list_routes.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class Login {
           key: DataFeatures.keyDataClient);
 
       if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(context, "", (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, ListRoutes.splash, (route) => false);
       }
     } catch (e) {
       if (context.mounted) {
