@@ -19,4 +19,10 @@ class DataFeatures {
 
     return _prefs!.getString(key);
   }
+
+  static Future delete({required String key}) async {
+    await _initialize();
+
+    await _prefs!.remove(key);
+  }
 }
