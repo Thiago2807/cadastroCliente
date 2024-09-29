@@ -1,3 +1,4 @@
+import 'package:cadastrocliente_ui/domain/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,14 +13,42 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  List<Map<String, dynamic>> dataForm = [];
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final FocusNode _focusEmail = FocusNode();
+  final FocusNode _focusPassword = FocusNode();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    dataForm = [
+      {
+        'hintText': "E-mail",
+        'obscureText': false,
+        'focusNode': _focusEmail,
+        'editController': _emailController,
+        'onFieldSubmitted': (_) {
+          _focusEmail.unfocus();
+          FocusScope.of(context).requestFocus(_focusPassword);
+        }
+      },
+      {
+        'hintText': "Senha",
+        'obscureText': true,
+        'focusNode': _focusPassword,
+        'editController': _passwordController,
+        'onFieldSubmitted': (_) => {}
+      }
+    ];
+    super.didChangeDependencies();
   }
 
   @override
@@ -53,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
                   "Login",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    color: const Color(0xFF1c1c1c),
+                    color: Color(AppColors.black),
                     fontSize: size.width * .08,
                     fontWeight: FontWeight.w600,
                   ),
@@ -62,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
                   "Faça login na sua conta primeiro",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.inter(
-                    color: const Color(0xFF1c1c1c),
+                    color: Color(AppColors.black),
                     fontSize: size.width * .04,
                   ),
                 ),
@@ -72,22 +101,26 @@ class _LoginViewState extends State<LoginView> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InputForm(
-                        hintText: "E-mail",
-                        obscureText: false,
-                        editController: _emailController,
-                      ),
-                      InputForm(
-                        hintText: "Senha",
-                        obscureText: true,
-                        editController: _passwordController,
+                      SizedBox(
+                        height: size.height * .2,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: dataForm.length,
+                          itemBuilder: (context, index) => InputForm(
+                            hintText: dataForm[index]["hintText"],
+                            obscureText: dataForm[index]["obscureText"],
+                            editController: dataForm[index]["editController"],
+                            focusNode: dataForm[index]["focusNode"],
+                            onFieldSubmitted: dataForm[index]["onFieldSubmitted"],
+                          ),
+                        ),
                       ),
                       SizedBox(height: size.height * .03),
                       Text(
                         "Esqueceu sua senha?",
                         textAlign: TextAlign.right,
                         style: GoogleFonts.inter(
-                          color: const Color(0xFF2B87FD),
+                          color: Color(AppColors.blue),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

@@ -10,11 +10,15 @@ class InputForm extends StatelessWidget {
     required this.editController,
     required this.hintText,
     required this.obscureText,
+    required this.focusNode,
+    this.onFieldSubmitted
   });
 
   final TextEditingController editController;
   final String hintText;
   final bool obscureText;
+  final FocusNode focusNode;
+  final Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +40,12 @@ class InputForm extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: size.height * .02),
           padding: EdgeInsets.symmetric(horizontal: size.height * .02),
           decoration: BoxDecoration(
-            color: const Color(0XFFF5F5F5),
+            color: Colors.grey.shade200,
             borderRadius: BorderRadius.circular(size.width * .02),
           ),
           child: TextFormField(
             controller: editController,
+            focusNode: focusNode,
             cursorColor: Colors.grey.shade600,
             obscureText: obscureText ? state.visiblePassword : false,
             decoration: InputDecoration(
@@ -58,6 +63,7 @@ class InputForm extends StatelessWidget {
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
             ),
+            onFieldSubmitted: onFieldSubmitted,
           ),
         );
       },
