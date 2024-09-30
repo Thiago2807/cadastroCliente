@@ -14,7 +14,7 @@ class Login {
   static Future requestLogin(BuildContext context,
       {required LoginDto data}) async {
     try {
-      final Dio dio = await HttpConfig.config();
+      final Dio dio = await HttpConfig.config(context);
 
       var response = await dio.post(
         "/api/v1/pessoa/login",

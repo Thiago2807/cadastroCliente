@@ -36,7 +36,7 @@ class Home {
 
   static Future<List<UserEntity>> requestListClient(BuildContext context) async {
     try {
-      final Dio dio = await HttpConfig.config();
+      final Dio dio = await HttpConfig.config(context);
 
       var response = await dio.get("/api/v1/pessoa");
 

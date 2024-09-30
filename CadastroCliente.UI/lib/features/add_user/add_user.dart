@@ -46,7 +46,7 @@ class AddUser {
       TextEditingController senhaController,
   ) async {
     try {
-      final Dio dio = await HttpConfig.config();
+      final Dio dio = await HttpConfig.config(context);
 
       final entity = UserEntity.fromObject(UserSingleton());
 

@@ -64,7 +64,7 @@ class UserAddressEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'cep': cep,
+      'cep': cep.replaceAll(RegExp(r'\D'), ''),
       'logradouro': logradouro,
       'complemento': complemento,
       'unidade': unidade,

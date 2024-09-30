@@ -60,9 +60,9 @@ class _InputFormState extends State<InputForm> {
 
         if (widget.obscureText) {
           if (state.visiblePassword) {
-            iconEye = Icons.visibility_rounded;
+            iconEye = Icons.visibility_outlined;
           } else {
-            iconEye = Icons.visibility_off_rounded;
+            iconEye = Icons.visibility_off_outlined;
           }
         }
 

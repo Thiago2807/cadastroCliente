@@ -9,10 +9,12 @@ class ButtonAddUser extends StatelessWidget {
     super.key,
     required this.function,
     required this.content,
+    required this.isLoading,
   });
 
   final Function() function;
   final Widget content;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,17 @@ class ButtonAddUser extends StatelessWidget {
           borderRadius: BorderRadius.circular(size.width * .02),
         ),
         child: LayoutBuilder(
-          builder: (context, constraints) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              content
-            ],
-          ),
+          builder: (context, constraints) => isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 1,
+                  ),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [content],
+                ),
         ),
       ),
     );

@@ -7,9 +7,11 @@ class ButtonLogin extends StatelessWidget {
   const ButtonLogin({
     super.key,
     required this.function,
+    required this.isLoading,
   });
 
   final Function() function;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +26,21 @@ class ButtonLogin extends StatelessWidget {
           gradient: AppColors.gradientApp,
           borderRadius: BorderRadius.circular(size.width * .02),
         ),
-        child: Text(
-          "Entrar",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.inter(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 1,
+                ),
+              )
+            : Text(
+                "Entrar",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
       ),
     );
   }

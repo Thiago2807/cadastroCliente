@@ -17,6 +17,7 @@ class AddUserView extends StatefulWidget {
 
 class _AddUserViewState extends State<AddUserView> {
   bool addressSearch = false;
+  bool isLoading = false;
 
   final TextEditingController _nomeController = TextEditingController();
   final TextEditingController _cpfController = TextEditingController();
@@ -199,6 +200,7 @@ class _AddUserViewState extends State<AddUserView> {
                                 enable: !addressSearch,
                                 mask: "#####-###",
                                 textInputType: TextInputType.number,
+                                validator: (value) => FormValidation.requiredCamp(value),
                                 onChanged: (e) =>
                                     UserSingleton().endereco.cep = e,
                               ),
@@ -282,11 +284,13 @@ class _AddUserViewState extends State<AddUserView> {
                         ],
                         SizedBox(height: size.height * .02),
                         ButtonAddUser(
+                          isLoading: isLoading,
                           function: () async {
                             if (!_formKey.currentState!.validate()) {
                               return;
                             }
 
+                            setState(() => isLoading = true);
                             if (UserSingleton().endereco.logradouro == "") {
                               final dataAddress =
                                   await AddUser.requestSearchCep(context);
@@ -306,6 +310,7 @@ class _AddUserViewState extends State<AddUserView> {
                                       UserSingleton().endereco.uf;
 
                                   addressSearch = true;
+                                  isLoading = false;
                                 });
                               }
                             } else {
@@ -316,8 +321,9 @@ class _AddUserViewState extends State<AddUserView> {
                                 return;
                               }
 
-                              AddUser.requestAddClient(
+                              await AddUser.requestAddClient(
                                   context, _senhaController);
+                              setState(() => isLoading = false);
                             }
                           },
                           content: Row(
@@ -356,7 +362,8 @@ class _AddUserViewState extends State<AddUserView> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(height: size.height * .02),
                       ],
                     ),
                   ),

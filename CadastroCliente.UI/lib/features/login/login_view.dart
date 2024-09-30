@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cadastrocliente_ui/domain/colors.dart';
 import 'package:cadastrocliente_ui/features/login/login.dart';
 import 'package:cadastrocliente_ui/features/login/login_dto.dart';
@@ -58,6 +60,8 @@ class _LoginViewState extends State<LoginView> {
     super.didChangeDependencies();
   }
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.sizeOf(context);
@@ -71,6 +75,19 @@ class _LoginViewState extends State<LoginView> {
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            Positioned(
+              top: size.height * .07,
+              left: size.height * .05,
+              child: Text(
+                "Login",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: size.width * .08,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
             Positioned(
               top: -size.height * .1,
               right: -size.height * .05,
@@ -128,23 +145,20 @@ class _LoginViewState extends State<LoginView> {
                         //   ),
                         // ),
                         Text(
-                          "Login",
-                          textAlign: TextAlign.center,
+                          "Bem-vindo de volta!",
                           style: GoogleFonts.inter(
                             color: Color(AppColors.black),
-                            fontSize: size.width * .08,
+                            fontSize: size.width * .055,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         Text(
-                          "Faça login na sua conta primeiro",
-                          textAlign: TextAlign.center,
+                          "Para se conectar conosco, faça login usando suas informações pessoais",
                           style: GoogleFonts.inter(
-                            color: Color(AppColors.black),
-                            fontSize: size.width * .04,
+                            color: Colors.grey.shade500,
+                            fontSize: size.width * .035,
                           ),
                         ),
-                        SizedBox(height: size.height * .04),
                         Form(
                           key: _formKey,
                           child: Column(
@@ -152,7 +166,7 @@ class _LoginViewState extends State<LoginView> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: size.height * .23,
+                                height: size.height * .225,
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -169,25 +183,19 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: size.height * .03),
-                              Text(
-                                "Esqueceu sua senha?",
-                                textAlign: TextAlign.right,
-                                style: GoogleFonts.inter(
-                                  color: Color(AppColors.blue),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                               ButtonLogin(
-                                function: () {
+                                isLoading: isLoading,
+                                function: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    Login.requestLogin(
+                                    setState(() => isLoading = true);
+                                    await Login.requestLogin(
                                       context,
                                       data: LoginDto.fromTextController(
                                         _emailController,
                                         _passwordController,
                                       ),
                                     );
+                                    setState(() => isLoading = false);
                                   }
                                 },
                               ),

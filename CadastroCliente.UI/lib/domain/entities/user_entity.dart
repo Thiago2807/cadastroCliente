@@ -45,7 +45,7 @@ class UserEntity {
         id: singleton.id,
         nome: singleton.nome,
         email: singleton.email,
-        cpf: singleton.cpf,
+        cpf: singleton.cpf.replaceAll(RegExp(r'\D'), ''),
         dtNascimento: singleton.dtNascimento,
         endereco: singleton.endereco,
       );

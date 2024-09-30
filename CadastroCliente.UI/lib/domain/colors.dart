@@ -12,5 +12,7 @@ class AppColors {
       Color(0xff1e4fe3),
       Color(0xff0d41e1),
     ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
   );
 }
