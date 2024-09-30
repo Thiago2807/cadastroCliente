@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../domain/colors.dart';
+import '../../shared/form_validation.dart';
 import 'add_user.dart';
 import 'store/user_singleton.dart';
 
@@ -46,6 +47,8 @@ class _AddUserViewState extends State<AddUserView> {
 
   final TextEditingController _senhaController = TextEditingController();
   final TextEditingController _cSenhaController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -92,11 +95,17 @@ class _AddUserViewState extends State<AddUserView> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Colors.transparent,
             title: Align(
-              alignment: Alignment.centerRight,
+              alignment: Alignment.centerLeft,
               child: Text(
                 "Cadastro de Novo Usuário",
+                style: GoogleFonts.inter(
+                  color: Color(AppColors.black),
+                  fontSize: size.width * .04,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ),
@@ -106,9 +115,21 @@ class _AddUserViewState extends State<AddUserView> {
               child: Column(
                 children: [
                   SizedBox(
+                    height: size.height * .01,
+                  ),
+                  Text(
+                    "Preencha as informações abaixo para criar um novo usuário:",
+                    style: GoogleFonts.inter(
+                      color: Colors.grey.shade600,
+                      fontSize: size.width * .035,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(
                     height: size.height * .02,
                   ),
                   Form(
+                    key: _formKey,
                     child: Column(
                       children: [
                         InputForm(
@@ -117,19 +138,29 @@ class _AddUserViewState extends State<AddUserView> {
                           obscureText: false,
                           focusNode: _nomeFocusNode,
                           onChanged: (e) => UserSingleton().nome = e,
+                          validator: (value) =>
+                              FormValidation.requiredCamp(value),
                         ),
                         InputForm(
                           editController: _cpfController,
                           hintText: "Cpf",
                           obscureText: false,
+                          mask: "###.###.###-##",
                           focusNode: _cpfFocusNode,
                           onChanged: (e) => UserSingleton().cpf = e,
+                          textInputType: TextInputType.number,
+                          validator: (value) =>
+                              FormValidation.validateCPF(value),
                         ),
                         InputForm(
                           editController: _dtNascimentoController,
                           hintText: "Data de Nascimento",
                           obscureText: false,
+                          mask: "##/##/####",
+                          textInputType: TextInputType.number,
                           focusNode: _dtNascimentoFocusNode,
+                          validator: (value) =>
+                              FormValidation.validateDateOfBirth(value),
                           //onChanged: (e) => UserSingleton().dtNascimento = e,
                         ),
                         InputForm(
@@ -137,6 +168,9 @@ class _AddUserViewState extends State<AddUserView> {
                           hintText: "E-mail",
                           obscureText: false,
                           focusNode: _emailFocusNode,
+                          textInputType: TextInputType.emailAddress,
+                          validator: (value) =>
+                              FormValidation.emailValidator(value),
                           onChanged: (e) => UserSingleton().email = e,
                         ),
                         Row(
@@ -229,21 +263,30 @@ class _AddUserViewState extends State<AddUserView> {
                           InputForm(
                             editController: _senhaController,
                             hintText: "Senha",
-                            obscureText: false,
+                            obscureText: true,
                             focusNode: _senhaFocusNode,
                             enable: true,
+                            validator: (value) =>
+                                FormValidation.passwordValidator(value),
                           ),
                           InputForm(
                             editController: _cSenhaController,
                             hintText: "Confirmar senha",
-                            obscureText: false,
+                            obscureText: true,
+                            cPassword: true,
                             focusNode: _cSenhaFocusNode,
                             enable: true,
+                            validator: (value) =>
+                                FormValidation.passwordValidator(value),
                           ),
                         ],
                         SizedBox(height: size.height * .02),
                         ButtonAddUser(
                           function: () async {
+                            if (!_formKey.currentState!.validate()) {
+                              return;
+                            }
+
                             if (UserSingleton().endereco.logradouro == "") {
                               final dataAddress =
                                   await AddUser.requestSearchCep(context);
@@ -266,6 +309,13 @@ class _AddUserViewState extends State<AddUserView> {
                                 });
                               }
                             } else {
+                              if (!AddUser.validPassword(
+                                  context,
+                                  _senhaController.text,
+                                  _cSenhaController.text)) {
+                                return;
+                              }
+
                               AddUser.requestAddClient(
                                   context, _senhaController);
                             }
@@ -284,13 +334,29 @@ class _AddUserViewState extends State<AddUserView> {
                               ),
                               SizedBox(width: size.width * .01),
                               Icon(
-                                Icons.search_rounded,
+                                UserSingleton().endereco.logradouro == ""
+                                    ? Icons.search_rounded
+                                    : Icons.check_rounded,
                                 color: Colors.white,
                                 size: size.width * .03,
                               ),
                             ],
                           ),
                         ),
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            margin: EdgeInsets.only(top: size.height * .02),
+                            child: Text(
+                              "Cancelar",
+                              style: GoogleFonts.inter(
+                                color: Color(AppColors.black),
+                                fontSize: size.width * .04,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),

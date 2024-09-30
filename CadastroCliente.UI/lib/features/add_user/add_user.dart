@@ -93,4 +93,21 @@ class AddUser {
       }
     }
   }
+
+  static bool validPassword(
+      BuildContext context, String password, String cPassword) {
+    if (cPassword != password) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          showCloseIcon: true,
+          backgroundColor: Color(AppColors.red),
+          content: const Text(
+            "As senhas não coincidem. Verifique e tente novamente.",
+          ),
+        ),
+      );
+      return false;
+    }
+    return true;
+  }
 }

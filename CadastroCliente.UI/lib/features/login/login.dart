@@ -32,7 +32,8 @@ class Login {
           key: DataFeatures.keyDataClient);
 
       if (context.mounted) {
-        Navigator.pushNamedAndRemoveUntil(context, ListRoutes.splash, (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context, ListRoutes.splash, (route) => false);
       }
     } catch (e) {
       if (context.mounted) {

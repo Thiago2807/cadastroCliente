@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../shared/components/input.dart';
+import '../../shared/form_validation.dart';
 import 'components/button_login.dart';
 
 class LoginView extends StatefulWidget {
@@ -21,6 +22,8 @@ class _LoginViewState extends State<LoginView> {
 
   final FocusNode _focusEmail = FocusNode();
   final FocusNode _focusPassword = FocusNode();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -40,14 +43,16 @@ class _LoginViewState extends State<LoginView> {
         'onFieldSubmitted': (_) {
           _focusEmail.unfocus();
           FocusScope.of(context).requestFocus(_focusPassword);
-        }
+        },
+        'validator': (value) => FormValidation.emailValidator(value),
       },
       {
         'hintText': "Senha",
         'obscureText': true,
         'focusNode': _focusPassword,
         'editController': _passwordController,
-        'onFieldSubmitted': (_) => {}
+        'onFieldSubmitted': (_) => {},
+        'validator': (value) => FormValidation.passwordValidator(value)
       }
     ];
     super.didChangeDependencies();
@@ -141,12 +146,13 @@ class _LoginViewState extends State<LoginView> {
                         ),
                         SizedBox(height: size.height * .04),
                         Form(
+                          key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: size.height * .2,
+                                height: size.height * .23,
                                 child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -159,6 +165,7 @@ class _LoginViewState extends State<LoginView> {
                                     focusNode: dataForm[index]["focusNode"],
                                     onFieldSubmitted: dataForm[index]
                                         ["onFieldSubmitted"],
+                                    validator: dataForm[index]["validator"],
                                   ),
                                 ),
                               ),
@@ -172,13 +179,17 @@ class _LoginViewState extends State<LoginView> {
                                 ),
                               ),
                               ButtonLogin(
-                                function: () => Login.requestLogin(
-                                  context,
-                                  data: LoginDto.fromTextController(
-                                    _emailController,
-                                    _passwordController,
-                                  ),
-                                ),
+                                function: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    Login.requestLogin(
+                                      context,
+                                      data: LoginDto.fromTextController(
+                                        _emailController,
+                                        _passwordController,
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                             ],
                           ),

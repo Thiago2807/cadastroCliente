@@ -17,6 +17,8 @@ class InputForm extends StatefulWidget {
     this.enable = true,
     this.mask = "",
     this.textInputType = TextInputType.text,
+    this.validator,
+    this.cPassword = false,
   });
 
   final TextEditingController editController;
@@ -28,6 +30,8 @@ class InputForm extends StatefulWidget {
   final bool enable;
   final String mask;
   final TextInputType textInputType;
+  final FormFieldValidator<String>? validator;
+  final bool cPassword;
 
   @override
   State<InputForm> createState() => _InputFormState();
@@ -70,6 +74,7 @@ class _InputFormState extends State<InputForm> {
             borderRadius: BorderRadius.circular(size.width * .02),
           ),
           child: TextFormField(
+            validator: widget.validator,
             enabled: widget.enable,
             onChanged: widget.onChanged,
             focusNode: widget.focusNode,
@@ -79,12 +84,16 @@ class _InputFormState extends State<InputForm> {
             keyboardType: widget.textInputType,
             obscureText: widget.obscureText ? state.visiblePassword : false,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: widget.obscureText ? size.height * .014 : 0),
+              contentPadding: EdgeInsets.only(
+                top: widget.obscureText && !widget.cPassword
+                    ? size.height * .014
+                    : 0,
+              ),
               hintText: widget.hintText,
               hintStyle: GoogleFonts.inter(
                 color: Colors.grey.shade500,
               ),
-              suffixIcon: widget.obscureText
+              suffixIcon: widget.obscureText && !widget.cPassword
                   ? GestureDetector(
                       onTap: () => state.alterVisiblePassword(),
                       child: Icon(

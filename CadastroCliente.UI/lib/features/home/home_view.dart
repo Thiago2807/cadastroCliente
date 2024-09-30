@@ -41,7 +41,7 @@ class HomeView extends StatelessWidget {
               ),
               SizedBox(height: size.height * .02),
               SizedBox(
-                height: size.height * .7,
+                height: size.height * .67,
                 child: const ListClients(),
               ),
             ],

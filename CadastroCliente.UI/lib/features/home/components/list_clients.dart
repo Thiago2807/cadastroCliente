@@ -34,6 +34,8 @@ class _ListClientsState extends State<ListClients> {
     final Size size = MediaQuery.sizeOf(context);
 
     return RefreshIndicator(
+      backgroundColor: Colors.white,
+      color: Color(AppColors.blue),
       onRefresh: _refreshList,
       child: FutureBuilder<List<UserEntity>>(
         future: listClient,
@@ -90,38 +92,27 @@ class _ListClientsState extends State<ListClients> {
                         ),
                       ),
                       SizedBox(width: size.width * .02),
-                      SizedBox(
-                        width: size.width * .6,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              snapshot.data![index].nome,
-                              style: GoogleFonts.inter(
-                                color: Color(AppColors.black),
-                                fontSize: size.width * .04,
-                                fontWeight: FontWeight.w600,
-                              ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            snapshot.data![index].nome,
+                            style: GoogleFonts.inter(
+                              color: Color(AppColors.black),
+                              fontSize: size.width * .03,
+                              fontWeight: FontWeight.w600,
                             ),
-                            Text(
-                              snapshot.data![index].email,
-                              style: GoogleFonts.inter(
-                                color: Colors.grey.shade400,
-                                fontSize: size.width * .03,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          ),
+                          SizedBox(height: size.height * .001),
+                          Text(
+                            FormatData.formatCpf(snapshot.data![index].cpf),
+                            style: GoogleFonts.inter(
+                              color: Color(AppColors.black),
+                              fontSize: size.width * .03,
+                              fontWeight: FontWeight.w400,
                             ),
-                            SizedBox(height: size.height * .02),
-                            Text(
-                              FormatData.formatCpf(snapshot.data![index].cpf),
-                              style: GoogleFonts.inter(
-                                color: Color(AppColors.black),
-                                fontSize: size.width * .03,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -133,39 +124,46 @@ class _ListClientsState extends State<ListClients> {
                         vertical: constraints.maxWidth * .02,
                         horizontal: constraints.maxWidth * .02,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            "Detalhes do usuário:",
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.inter(
-                              color: Color(AppColors.black),
-                              fontSize: constraints.maxWidth * .05,
-                              fontWeight: FontWeight.bold,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: constraints.maxWidth * .04
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            SizedBox(height: constraints.maxWidth * .01),
+
+                            Text(
+                              snapshot.data![index].email,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.inter(
+                                color: Color(AppColors.black),
+                                fontSize: constraints.maxWidth * .045,
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: constraints.maxWidth * .005),
-                          Text(
-                            "Data de Nascimento: ${DateFormat("dd/MM/yy").format(snapshot.data![index].dtNascimento)}",
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.inter(
-                              color: Color(AppColors.black),
-                              fontSize: constraints.maxWidth * .05,
-                              fontWeight: FontWeight.w400,
+                            SizedBox(height: constraints.maxWidth * .01),
+                            Text(
+                              "Data de Nascimento: ${DateFormat("dd/MM/yy").format(snapshot.data![index].dtNascimento)}",
+                              textAlign: TextAlign.start,
+                                style: GoogleFonts.inter(
+                                  color: Color(AppColors.black),
+                                  fontSize: constraints.maxWidth * .045,
+                                  fontWeight: FontWeight.w400,
+                                ),
                             ),
-                          ),
-                          SizedBox(height: constraints.maxWidth * .01),
-                          Text(
-                            snapshot.data![index].endereco.formatAddress(),
-                            textAlign: TextAlign.start,
-                            style: GoogleFonts.inter(
-                              color: Color(AppColors.black),
-                              fontSize: constraints.maxWidth * .04,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )
-                        ],
+                            SizedBox(height: constraints.maxWidth * .01),
+                            Text(
+                              snapshot.data![index].endereco.formatAddress(),
+                              textAlign: TextAlign.start,
+                              style: GoogleFonts.inter(
+                                color: Color(AppColors.black),
+                                fontSize: constraints.maxWidth * .04,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
