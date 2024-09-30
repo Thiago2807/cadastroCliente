@@ -64,8 +64,6 @@ public class AddCommandValid : AbstractValidator<AddCommand>
             .MaximumLength(100).WithMessage("Tamanho do campo 'Logradouro' maior que o permitido");
 
         RuleFor(prop => prop.Endereco.Unidade)
-            .NotEmpty().WithMessage("O campo 'Unidade' não pode ser vazio.")
-            .NotNull().WithMessage("O campo 'Unidade' precisa ser informado.")
             .MaximumLength(10).WithMessage("Tamanho do campo 'Unidade' maior que o permitido");
 
         RuleFor(prop => prop.Endereco.Bairro)
